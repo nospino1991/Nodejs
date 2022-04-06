@@ -1,0 +1,1 @@
+exports.API_USUARIO="https://intercorpretail:3001"

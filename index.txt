@@ -1,0 +1,103 @@
+// NODE + EXPRESS(FRAMEWORK BASTANTE POTENTE Y SENCILLO DE MANEJAR)
+
+const express= require("express") //Frameword para prender el api 
+const app =express();// App todas las funcionalidades que te brinda express
+
+const Lenguajes = [ //BD tabla de lenguajes de programación en  sql server
+                {
+                    id: 1,
+                    name: 'Javascript',
+                    complejidad: 'Baja'
+                },
+                {
+                    id: 2,
+                    name: 'PHP',
+                    complejidad: 'Media'
+                },
+                {
+                    id: 3,
+                    name: 'Python',
+                    complejidad: 'media'
+                },
+                {
+                    id: 4,
+                    name: 'GO',
+                    complejidad: 'Alta'
+                },
+                {
+                    id: 5,// PK
+                    name: 'Java',
+                    complejidad: 'Alta'
+                },
+            ]; 
+
+app.get("/saludar",(req,resp)=>{
+    ///En algunos caso el req no se utiliza 
+    resp.send("Hola mundo")
+})
+
+
+//Rutas con Parametros
+app.get("/saludar/:nombre/:apellido",(req,resp)=>{
+       let nombre=req.params.nombre // Recuperación de parametros
+       let ap=req.params.apellido
+       resp.send(`Hola ${nombre } ${ap}`)
+
+})
+
+
+
+app.get("/lenguaje/:id",(req,resp)=>{
+    let ID=req.params.id // Recuperación de parametros
+
+// conexion a BD SELECT * FROM LENGUAJES WHERE id=ID
+    let lenguaje=Lenguajes.find((lenguaje)=>lenguaje.id==ID)
+
+
+    resp.send({"Lenguaje":lenguaje})
+})
+
+
+app.get("/lenguaje",(req,resp)=>{
+  
+    resp.send({"Lenguajes":Lenguajes})
+})
+
+app.get("/lenguajeCoincidencia/:letra",(req,resp)=>{
+    let Letra=req.params.letra
+
+    let LenguajesSelect=[]
+     
+    for (let index = 0; index < Lenguajes.length; index++) {
+           if (Lenguajes[index].name.indexOf(Letra)>-1) {
+              LenguajesSelect.push(Lenguajes[index].name)
+           }
+        
+    }
+
+    resp.send(LenguajesSelect)
+})
+
+
+
+
+app.listen(3008,()=>{
+      console.log("Mi servidor esta corriendo en el puerto 3008")
+})
+
+
+//Desarrollame un metodo que me traiga el lenguaje de programación que yo le pida 
+
+//app es la aplicación por lo tanto debemos agregarle capaz 
+
+//Que el api salude 
+
+// Metodo del api que se exponga a un cliente se asocia a una ruta 
+
+
+//Conexiones https :  get , post, delete ,put ,path 
+
+//get Solo lectura obtener informacion
+//post insertar nuevo recuerso
+//put actualizar un recurso
+//delete eliminar recurso 

@@ -17,18 +17,15 @@ exports.findbyId=()=>{
 exports.Save=(req,resp)=>{
     let data = data_lenguaje.getLenguajes(); 
 
-  
 
     const {id,name,complejidad} = req.body
     data.push({id:id,name:name,complejidad:complejidad})
 
     return  resp.send(data)
-
-
 }
 
 exports.Edit=()=>{
-   // let datosObtener=util.API_USUARIO+"/ruta"
+   
 }
 
 
